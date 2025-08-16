@@ -1,11 +1,14 @@
+// ส่วนที่ 1: การ import libraries และไฟล์ที่เกี่ยวข้อง
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+// ส่วนที่ 2: Main function คือ จุดเริ่มต้นของแอป
 void main() {
   runApp(const MyApp());
 }
 
+// ส่วนที่ 3: MyApp คือ StatelessWidget ที่ไม่ต้อง
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ส่วนที่ 4: MainPage คือ StatefulWidget ซึ่งสามารถเปลี่ยนแปลงค่าหรือสถานะได้
 class HousePriceEstimator extends StatefulWidget {
   const HousePriceEstimator({super.key});
 
@@ -34,6 +38,7 @@ class HousePriceEstimator extends StatefulWidget {
   State<HousePriceEstimator> createState() => _HousePriceEstimatorState();
 }
 
+// ส่วนที่ 5: _MainPageState คือ state ของ MainPage
 class _HousePriceEstimatorState extends State<HousePriceEstimator>
     with TickerProviderStateMixin {
   // Form controllers
@@ -468,3 +473,5 @@ class _HousePriceEstimatorState extends State<HousePriceEstimator>
     );
   }
 }
+
+
