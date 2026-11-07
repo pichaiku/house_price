@@ -76,12 +76,12 @@ export default function Home() {
               value={distance ?? ''}
               onChange={(e) => setDistance(Number(e.target.value))}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="0 - 10000"
+              placeholder="0 - 10,000"
             />
           </div>
 
           <div>
-            <label htmlFor="minimart" className="block text-gray-700 font-medium mb-2">จำนวนร้านสะดวกซื้อใกล้เคียง</label>
+            <label htmlFor="minimart" className="block text-gray-700 font-medium mb-2">จำนวนร้านสะดวกซื้อใกล้เคียง (แหล่ง)</label>
             <input
               id="minimart"
               type="number"
@@ -98,7 +98,7 @@ export default function Home() {
           disabled={loading || age === null || distance === null || minimart === null}
           className="mt-6 w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
         >
-          {loading ? 'กำลังคำนวณ...' : 'คำนวณราคา'}
+          {loading ? 'กำลังประเมิน...' : 'ประเมินราคา'}
         </button>
 
         {error && (
@@ -110,7 +110,7 @@ export default function Home() {
         {price !== null && (
           <div className="mt-6 p-6 bg-green-50 text-green-800 border-l-4 border-green-500 rounded-lg shadow-inner">
             <h2 className="text-xl font-semibold mb-2">ราคาประเมินบ้าน</h2>
-            <p className="text-3xl font-bold">{price.toLocaleString()} {currency}</p>            
+            <p className="text-3xl font-bold">{Math.round(price).toLocaleString()} {currency}</p>            
           </div>
         )}
       </div>

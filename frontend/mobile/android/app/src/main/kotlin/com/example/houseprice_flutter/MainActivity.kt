@@ -1,4 +1,4 @@
-package com.example.mobile
+package com.example.houseprice_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
