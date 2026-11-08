@@ -1,31 +1,39 @@
 # House Price Prediction
 
-โปรเจกต์สำหรับประเมินราคาบ้านต่อตารางเมตรจากอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง โดยมี Web Application, Mobile Application และ REST API ที่เชื่อมต่อกับโมเดล Machine Learning
+โปรเจกต์สำหรับประเมินราคาบ้านต่อตารางเมตรจากอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง โดยมี Mobile Application, Web Application และ REST API ที่เชื่อมต่อกับโมเดล Machine Learning
 
 ## ภาพหน้าจอ
 
-ภาพด้านล่างเป็น screenshot จาก Web และ Mobile Application ที่รันจริง โดยเชื่อมต่อกับ Backend API สำเร็จ
-
-### Web Application: แบบฟอร์มเริ่มต้น
-
-<img src="docs/screenshots/web-home.png" alt="Web application initial state" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
-
-### Web Application: ผลลัพธ์หลังคำนวณ
-
-<img src="docs/screenshots/web-result.png" alt="Web application prediction result" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
+ภาพด้านล่างเรียงลำดับจาก Mobile Application ไปยัง Web Application เพื่อให้เห็นขั้นตอนการใช้งานทั้งหน้าฟอร์มและหน้าผลลัพธ์ โดยภาพทั้งหมดเชื่อมต่อกับ Backend API สำเร็จ
 
 ### Mobile Application: แบบฟอร์มเริ่มต้น
+
+หน้าฟอร์มสำหรับกรอกอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง
 
 <img src="docs/screenshots/mobile-home.png" alt="Mobile application initial state" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
 
 ### Mobile Application: ผลลัพธ์หลังคำนวณ
 
+หน้าผลลัพธ์ราคาประเมินที่ได้จากข้อมูลของผู้ใช้
+
 <img src="docs/screenshots/mobile-result.png" alt="Mobile application prediction result" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
+
+### Web Application: แบบฟอร์มเริ่มต้น
+
+หน้าฟอร์มของ Web Application ที่ใช้ข้อมูลชุดเดียวกันในการประเมินราคา
+
+<img src="docs/screenshots/web-home.png" alt="Web application initial state" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
+
+### Web Application: ผลลัพธ์หลังคำนวณ
+
+หน้าผลลัพธ์ราคาประเมินบน Web Application
+
+<img src="docs/screenshots/web-result.png" alt="Web application prediction result" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
 
 ## ภาพรวมการทำงาน
 
 ```text
-ผู้ใช้ (Web / Mobile)
+ผู้ใช้ (Mobile / Web)
         │  POST /api/house
         ▼
 Flask API :8000
@@ -42,16 +50,16 @@ Linear Regression Model (.pkl)
 - รับข้อมูลอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง
 - ตรวจสอบชนิดข้อมูลและช่วงของค่าที่รับเข้ามา
 - ประเมินราคาบ้านผ่านโมเดล Linear Regression
-- ใช้งานผ่าน Web หรือ Mobile Application
+- ใช้งานผ่าน Mobile หรือ Web Application
 - แสดงผลราคาเป็นบาทต่อตารางเมตร
 
 ## Tech Stack
 
 | ส่วนระบบ | เทคโนโลยี | หน้าที่ |
 |---|---|---|
+| Mobile | Flutter, Dart | แอปสำหรับ Android, iOS, Web, Windows, macOS และ Linux |
 | Web | Next.js 15, React 19, TypeScript | แบบฟอร์มประเมินราคาในเว็บ |
 | Web styling | Tailwind CSS 4 | Layout และ styling ของหน้าเว็บ |
-| Mobile | Flutter, Dart | แอปสำหรับ Android, iOS, Web, Windows, macOS และ Linux |
 | API | Python, Flask, Flask-CORS | รับข้อมูลและส่งผลการทำนาย |
 | Validation | Pydantic | ตรวจสอบชนิดและช่วงของ input |
 | ML | scikit-learn `LinearRegression` | โมเดลทำนายราคา |
@@ -70,18 +78,18 @@ house_price/
 │       ├── house_price_model.pkl  # โมเดลที่ train แล้ว
 │       └── requirements.txt       # Python dependencies ของ Backend
 ├── frontend/
-│   ├── web/
-│   │   ├── src/app/page.tsx       # หน้าแบบฟอร์มประเมินราคาบ้าน
-│   │   ├── src/app/layout.tsx     # Root layout และ metadata ของ Next.js
-│   │   ├── src/app/globals.css    # Global styles
-│   │   ├── public/                # Static assets
-│   │   ├── package.json           # Scripts และ dependencies ของ Web
-│   │   └── next.config.ts         # Next.js configuration
-│   └── mobile/
-│       ├── lib/main.dart          # Flutter application และ API client
-│       ├── pubspec.yaml           # Flutter dependencies
-│       ├── test/                  # Widget tests
-│       └── android/ ios/ macos/   # Platform-specific project files
+│   ├── mobile/
+│   │   ├── lib/main.dart          # Flutter application และ API client
+│   │   ├── pubspec.yaml           # Flutter dependencies
+│   │   ├── test/                  # Widget tests
+│   │   └── android/ ios/ macos/   # Platform-specific project files
+│   └── web/
+│       ├── src/app/page.tsx       # หน้าแบบฟอร์มประเมินราคาบ้าน
+│       ├── src/app/layout.tsx     # Root layout และ metadata ของ Next.js
+│       ├── src/app/globals.css    # Global styles
+│       ├── public/                # Static assets
+│       ├── package.json           # Scripts และ dependencies ของ Web
+│       └── next.config.ts         # Next.js configuration
 ├── docs/
 │   └── screenshots/               # ภาพประกอบใน README
 └── README.md
@@ -105,6 +113,8 @@ house_price/
 - Android Emulator, iOS Simulator หรืออุปกรณ์จริง หากต้องการรัน Mobile
 
 ## การติดตั้งและการรัน
+
+ลำดับการรันระบบคือ Backend API → Mobile Application → Web Application เพื่อให้ทั้งสองแอปเชื่อมต่อ API ได้ก่อนเริ่มใช้งาน
 
 ### 1. Backend API
 
@@ -152,7 +162,24 @@ python api.py
 ```
 
 
-### 2. Web Application
+### 2. Mobile Application
+
+```bash
+cd frontend/mobile
+flutter pub get
+flutter devices
+flutter run
+```
+
+โค้ด Mobile เรียก API ที่ `http://127.0.0.1:8000/api/house` หากรัน API บน Server หรือ IP อื่นให้ระบุ IP ให้ถูกต้อง เช่น
+
+```dart
+Uri.parse('http://192.168.1.101:8000/api/house')
+```
+
+สำหรับ iOS Simulator หรือการรันบน desktop ให้เลือก host ที่เครื่องปลายทางเข้าถึง backend ได้ และตรวจสอบ firewall หากเชื่อมต่อไม่ได้
+
+### 3. Web Application
 
 ```bash
 cd frontend/web
@@ -173,28 +200,11 @@ npm run start
 
 Web เรียก `POST http://127.0.0.1:8000/api/house` โดยตรง หาก backend อยู่คนละเครื่องหรือใช้คนละ port ให้แก้ URL ใน `frontend/web/src/app/page.tsx`
 
-### 3. Mobile Application
-
-```bash
-cd frontend/mobile
-flutter pub get
-flutter devices
-flutter run
-```
-
-โค้ด Mobile เรียก API ที่ `http://127.0.0.1:8000/api/house` หากรันบน Android Emulator ให้เปลี่ยน host เป็น `10.0.2.2` เพื่ออ้างถึงเครื่อง host:
-
-```dart
-Uri.parse('http://10.0.2.2:8000/api/house')
-```
-
-สำหรับ iOS Simulator หรือการรันบน desktop ให้เลือก host ที่เครื่องปลายทางเข้าถึง backend ได้ และตรวจสอบ firewall หากเชื่อมต่อไม่ได้
-
 ## วิธีการใช้งาน
 
 1. เปิด Backend API ที่ port `8000`
-2. เปิด Web ที่ port `3000` หรือเปิด Mobile ผ่าน Flutter
-3. กรอกอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อ
+2. เปิด Mobile ผ่าน Flutter หรือเปิด Web ที่ port `3000`
+3. กรอกอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใน Mobile หรือ Web
 4. กดปุ่ม **คำนวณราคา**
 5. อ่านผลราคาประเมินที่แสดงเป็นบาทต่อตารางเมตร
 
