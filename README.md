@@ -1,39 +1,39 @@
 # House Price Prediction
 
-โปรเจกต์สำหรับประเมินราคาบ้านต่อตารางเมตรจากอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง โดยมี Mobile Application, Web Application และ REST API ที่เชื่อมต่อกับโมเดล Machine Learning
+This project estimates house prices per square meter based on the property's age, distance to an MRT station, and the number of nearby convenience stores. It includes a mobile application, a web application, and a REST API connected to a machine learning model.
 
-## ภาพหน้าจอ
+## Screenshots
 
-ภาพด้านล่างเรียงลำดับจาก Mobile Application ไปยัง Web Application เพื่อให้เห็นขั้นตอนการใช้งานทั้งหน้าฟอร์มและหน้าผลลัพธ์ โดยภาพทั้งหมดเชื่อมต่อกับ Backend API สำเร็จ
+The screenshots below are ordered from the mobile application to the web application and show both the input form and prediction result. All screenshots show successful connections to the backend API.
 
-### Mobile Application: แบบฟอร์มเริ่มต้น
+### Mobile Application: Initial Form
 
-หน้าฟอร์มสำหรับกรอกอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง
+Form for entering the property's age, distance to an MRT station, and number of nearby convenience stores.
 
 <img src="docs/screenshots/mobile-home.png" alt="Mobile application initial state" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
 
-### Mobile Application: ผลลัพธ์หลังคำนวณ
+### Mobile Application: Prediction Result
 
-หน้าผลลัพธ์ราคาประเมินที่ได้จากข้อมูลของผู้ใช้
+Estimated price based on the user's input.
 
 <img src="docs/screenshots/mobile-result.png" alt="Mobile application prediction result" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
 
-### Web Application: แบบฟอร์มเริ่มต้น
+### Web Application: Initial Form
 
-หน้าฟอร์มของ Web Application ที่ใช้ข้อมูลชุดเดียวกันในการประเมินราคา
+Web application form that uses the same inputs to estimate the price.
 
 <img src="docs/screenshots/web-home.png" alt="Web application initial state" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
 
-### Web Application: ผลลัพธ์หลังคำนวณ
+### Web Application: Prediction Result
 
-หน้าผลลัพธ์ราคาประเมินบน Web Application
+Estimated price displayed in the web application.
 
 <img src="docs/screenshots/web-result.png" alt="Web application prediction result" width="560" height="400" style="object-fit: contain; background: #f5f5f5;" />
 
-## ภาพรวมการทำงาน
+## System Overview
 
 ```text
-ผู้ใช้ (Mobile / Web)
+User (Mobile / Web)
         │  POST /api/house
         ▼
 Flask API :8000
@@ -42,79 +42,79 @@ Flask API :8000
 Linear Regression Model (.pkl)
         │
         ▼
-ราคาประเมิน (บาท/ตร.ม.)
+Estimated price (THB/sq. m.)
 ```
 
-## ความสามารถของระบบ
+## Features
 
-- รับข้อมูลอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใกล้เคียง
-- ตรวจสอบชนิดข้อมูลและช่วงของค่าที่รับเข้ามา
-- ประเมินราคาบ้านผ่านโมเดล Linear Regression
-- ใช้งานผ่าน Mobile หรือ Web Application
-- แสดงผลราคาเป็นบาทต่อตารางเมตร
+- Accepts the property's age, distance to an MRT station, and number of nearby convenience stores.
+- Validates input data types and value ranges.
+- Estimates house prices using a Linear Regression model.
+- Supports use through the mobile or web application.
+- Displays prices in Thai baht per square meter.
 
 ## Tech Stack
 
-| ส่วนระบบ | เทคโนโลยี | หน้าที่ |
+| Component | Technology | Purpose |
 |---|---|---|
-| Mobile | Flutter, Dart | แอปสำหรับ Android, iOS, Web, Windows, macOS และ Linux |
-| Web | Next.js 15, React 19, TypeScript | แบบฟอร์มประเมินราคาในเว็บ |
-| Web styling | Tailwind CSS 4 | Layout และ styling ของหน้าเว็บ |
-| API | Python, Flask, Flask-CORS | รับข้อมูลและส่งผลการทำนาย |
-| Validation | Pydantic | ตรวจสอบชนิดและช่วงของ input |
-| ML | scikit-learn `LinearRegression` | โมเดลทำนายราคา |
-| Data | pandas, NumPy | อ่านและเตรียมข้อมูล |
-| Model persistence | joblib | บันทึก/โหลดโมเดล `.pkl` |
+| Mobile | Flutter, Dart | Application for Android, iOS, Web, Windows, macOS, and Linux |
+| Web | Next.js 15, React 19, TypeScript | Web-based price estimation form |
+| Web styling | Tailwind CSS 4 | Web page layout and styling |
+| API | Python, Flask, Flask-CORS | Receives input and returns predictions |
+| Validation | Pydantic | Validates input types and ranges |
+| ML | scikit-learn `LinearRegression` | Price prediction model |
+| Data | pandas, NumPy | Reads and prepares data |
+| Model persistence | joblib | Saves and loads the `.pkl` model |
 
-## โครงสร้างไฟล์
+## Project Structure
 
 ```text
 house_price/
 ├── backend/
 │   └── model/
-│       ├── api.py                 # Flask REST API และ validation ของ request
-│       ├── model.py               # เทรนและ export โมเดล Linear Regression
-│       ├── house_price.csv        # ชุดข้อมูลสำหรับ train/test
-│       ├── house_price_model.pkl  # โมเดลที่ train แล้ว
-│       └── requirements.txt       # Python dependencies ของ Backend
+│       ├── api.py                 # Flask REST API and request validation
+│       ├── model.py               # Trains and exports the Linear Regression model
+│       ├── house_price.csv        # Training and test dataset
+│       ├── house_price_model.pkl  # Trained model
+│       └── requirements.txt       # Backend Python dependencies
 ├── frontend/
 │   ├── mobile/
-│   │   ├── lib/main.dart          # Flutter application และ API client
+│   │   ├── lib/main.dart          # Flutter application and API client
 │   │   ├── pubspec.yaml           # Flutter dependencies
 │   │   ├── test/                  # Widget tests
 │   │   └── android/ ios/ macos/   # Platform-specific project files
 │   └── web/
-│       ├── src/app/page.tsx       # หน้าแบบฟอร์มประเมินราคาบ้าน
-│       ├── src/app/layout.tsx     # Root layout และ metadata ของ Next.js
+│       ├── src/app/page.tsx       # House price estimation form
+│       ├── src/app/layout.tsx     # Next.js root layout and metadata
 │       ├── src/app/globals.css    # Global styles
 │       ├── public/                # Static assets
-│       ├── package.json           # Scripts และ dependencies ของ Web
+│       ├── package.json           # Web scripts and dependencies
 │       └── next.config.ts         # Next.js configuration
 ├── docs/
-│   └── screenshots/               # ภาพประกอบใน README
+│   └── screenshots/               # Screenshots used in this README
 └── README.md
 ```
 
-## ข้อมูลที่ใช้ทำนาย
+## Prediction Inputs
 
-| Field | ชนิด | ช่วงที่รองรับ | หน่วย |
+| Field | Type | Supported Range | Unit |
 |---|---:|---:|---|
-| `age` | integer | 0–120 | ปี |
-| `distance` | integer | 0–10,000 | เมตรจาก MRT |
-| `minimart` | integer | 0–20 | จำนวนร้าน |
+| `age` | integer | 0–120 | years |
+| `distance` | integer | 0–10,000 | meters from an MRT station |
+| `minimart` | integer | 0–20 | number of stores |
 
-โมเดลแบ่งข้อมูลเป็น training set 70% และ test set 30% ด้วย `random_state=0` จากนั้นประเมินด้วย MAPE ก่อน export เป็น `house_price_model.pkl` ผลลัพธ์เป็นการประมาณจากชุดข้อมูล ไม่ใช่ราคาซื้อขายจริง
+The model splits the data into a 70% training set and a 30% test set using `random_state=0`, then evaluates it with MAPE before exporting it as `house_price_model.pkl`. Predictions are estimates based on the dataset and do not represent actual transaction prices.
 
-## ข้อกำหนดเบื้องต้น
+## Prerequisites
 
-- Python 3.9 ขึ้นไป พร้อม `pip`
-- Node.js และ npm สำหรับ Web
-- Flutter SDK สำหรับ Mobile
-- Android Emulator, iOS Simulator หรืออุปกรณ์จริง หากต้องการรัน Mobile
+- Python 3.9 or later with `pip`
+- Node.js and npm for the web application
+- Flutter SDK for the mobile application
+- An Android Emulator, iOS Simulator, or physical device to run the mobile application
 
-## การติดตั้งและการรัน
+## Installation and Running
 
-ลำดับการรันระบบคือ Backend API → Mobile Application → Web Application เพื่อให้ทั้งสองแอปเชื่อมต่อ API ได้ก่อนเริ่มใช้งาน
+Start the services in this order: backend API → mobile application → web application. Start the API before using either application so they can connect to it.
 
 ### 1. Backend API
 
@@ -129,33 +129,33 @@ pip install -r requirements.txt
 python api.py
 ```
 
-บน macOS/Linux ให้เปิดใช้งาน virtual environment ด้วย `source .venv/bin/activate` แทนคำสั่งของ Windows
+On macOS/Linux, activate the virtual environment with `source .venv/bin/activate` instead of the Windows command.
 
-API จะทำงานที่ `http://127.0.0.1:8000` โดย `api.py` โหลด `house_price_model.pkl` จากโฟลเดอร์ปัจจุบัน จึงควรรันคำสั่งจาก `backend/model` ตามตัวอย่าง
+The API runs at `http://127.0.0.1:8000`. `api.py` loads `house_price_model.pkl` from the current directory, so run the command from `backend/model` as shown.
 
-### Train โมเดลใหม่
+### Train a New Model
 
-หากมีการแก้ไขข้อมูลใน `house_price.csv` หรือต้องการสร้างโมเดลใหม่ ให้รัน `model.py` จากโฟลเดอร์เดียวกับไฟล์ dataset และโมเดล:
+If you update `house_price.csv` or want to create a new model, run `model.py` from the directory containing the dataset and model:
 
 ```bash
 cd backend/model
 
-# เปิดใช้งาน virtual environment ก่อน หากยังไม่ได้เปิด
+# Activate the virtual environment first if it is not already active
 # Windows PowerShell
 .venv\Scripts\Activate.ps1
 
 python model.py
 ```
 
-กระบวนการ train จะทำงานตามลำดับดังนี้:
+The training process performs the following steps:
 
-1. อ่านข้อมูลจาก `house_price.csv`
-2. แบ่งข้อมูลเป็น training set 70% และ test set 30% ด้วย `random_state=0`
-3. train โมเดล `LinearRegression`
-4. คำนวณค่า MAPE และแสดงผลใน terminal
-5. บันทึกโมเดลใหม่เป็น `house_price_model.pkl`
+1. Reads data from `house_price.csv`.
+2. Splits the data into a 70% training set and a 30% test set using `random_state=0`.
+3. Trains the `LinearRegression` model.
+4. Calculates MAPE and displays the result in the terminal.
+5. Saves the new model as `house_price_model.pkl`.
 
-ไฟล์ `house_price_model.pkl` เดิมจะถูกเขียนทับเมื่อ train สำเร็จ ดังนั้นควรสำรองไฟล์เดิมก่อน หากต้องการเก็บโมเดลเวอร์ชันก่อนหน้า หลัง train เสร็จให้ restart API เพื่อให้ API โหลดโมเดลใหม่:
+The existing `house_price_model.pkl` file will be overwritten after successful training. Back it up first if you want to keep the previous model version. After training, restart the API so it loads the new model:
 
 ```bash
 python api.py
@@ -171,13 +171,13 @@ flutter devices
 flutter run
 ```
 
-โค้ด Mobile เรียก API ที่ `http://127.0.0.1:8000/api/house` หากรัน API บน Server หรือ IP อื่นให้ระบุ IP ให้ถูกต้อง เช่น
+The mobile application calls the API at `http://127.0.0.1:8000/api/house`. If the API runs on a different server or IP address, update the address accordingly, for example:
 
 ```dart
 Uri.parse('http://192.168.1.101:8000/api/house')
 ```
 
-สำหรับ iOS Simulator หรือการรันบน desktop ให้เลือก host ที่เครื่องปลายทางเข้าถึง backend ได้ และตรวจสอบ firewall หากเชื่อมต่อไม่ได้
+For the iOS Simulator or desktop, use a host that the target device can reach, and check the firewall if the connection fails.
 
 ### 3. Web Application
 
@@ -187,38 +187,38 @@ npm install
 npm run dev
 ```
 
-บน Windows PowerShell หากคำสั่ง `npm` ถูกบล็อกด้วย Execution Policy ให้ใช้ `npm.cmd` แทน เช่น `npm.cmd install` และ `npm.cmd run dev`
+In Windows PowerShell, if the `npm` command is blocked by the execution policy, use `npm.cmd` instead, for example `npm.cmd install` and `npm.cmd run dev`.
 
-เปิด [http://localhost:3000](http://localhost:3000) แล้วกรอกข้อมูลทั้ง 3 ช่อง จากนั้นกด **คำนวณราคา**
+Open [http://localhost:3000](http://localhost:3000), fill in all three fields, and click **Calculate Price**.
 
-คำสั่งสำหรับ production build:
+Commands for a production build:
 
 ```bash
 npm run build
 npm run start
 ```
 
-Web เรียก `POST http://127.0.0.1:8000/api/house` โดยตรง หาก backend อยู่คนละเครื่องหรือใช้คนละ port ให้แก้ URL ใน `frontend/web/src/app/page.tsx`
+The web application directly calls `POST http://127.0.0.1:8000/api/house`. If the backend runs on another machine or port, update the URL in `frontend/web/src/app/page.tsx`.
 
-## วิธีการใช้งาน
+## Usage
 
-1. เปิด Backend API ที่ port `8000`
-2. เปิด Mobile ผ่าน Flutter หรือเปิด Web ที่ port `3000`
-3. กรอกอายุบ้าน ระยะทางถึง MRT และจำนวนร้านสะดวกซื้อใน Mobile หรือ Web
-4. กดปุ่ม **คำนวณราคา**
-5. อ่านผลราคาประเมินที่แสดงเป็นบาทต่อตารางเมตร
+1. Start the backend API on port `8000`.
+2. Launch the mobile application with Flutter or open the web application on port `3000`.
+3. Enter the property's age, distance to an MRT station, and number of nearby convenience stores in the mobile or web application.
+4. Click **Calculate Price**.
+5. View the estimated price in Thai baht per square meter.
 
 ## API Reference
 
 ### `GET /api/hello`
 
-ใช้ตรวจสอบว่า API ทำงานอยู่:
+Check that the API is running:
 
 ```bash
 curl http://127.0.0.1:8000/api/hello
 ```
 
-ผลลัพธ์ตัวอย่าง:
+Example response:
 
 ```json
 {"message":"hello world"}
@@ -236,21 +236,21 @@ Request:
 }
 ```
 
-Response เมื่อสำเร็จ:
+Successful response:
 
 ```json
 {
   "status": true,
   "price": 12345.67,
-  "currency": "บาท/ตร.ม."
+  "currency": "THB/sq. m."
 }
 ```
 
-หากข้อมูลไม่ผ่าน validation API จะคืน HTTP `400` พร้อมรายละเอียดใน `detail` เช่น ค่าติดลบหรืออยู่นอกช่วงที่กำหนด
+The current API returns the currency label in Thai; the example above uses its English equivalent. If validation fails, the API returns HTTP `400` with details in `detail`, such as a negative value or a value outside the supported range.
 
-## ข้อควรทราบ
+## Notes
 
-- Frontend ปัจจุบันกำหนด API URL ไว้ใน source code ยังไม่มี `.env` หรือ environment-based configuration
-- ค่า `CORS(app)` เปิดให้ทุก origin ในโหมดปัจจุบัน ควรจำกัด origin ก่อน deploy จริง
-- ไม่ควร commit secret หรือข้อมูลส่วนบุคคลลง repository
-- ไฟล์ `.pkl` ควรโหลดจากแหล่งที่เชื่อถือได้เท่านั้น เพราะการ deserialize อาจมีความเสี่ยงด้านความปลอดภัย
+- The frontend currently defines the API URL in source code; there is no `.env` file or environment-based configuration.
+- `CORS(app)` currently allows all origins. Restrict the allowed origins before deploying to production.
+- Do not commit secrets or personal data to the repository.
+- Load `.pkl` files only from trusted sources because deserialization can pose security risks.
